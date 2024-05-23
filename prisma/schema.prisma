@@ -1,0 +1,76 @@
+// https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+}
+
+// Table pour gérer tout ce qui est login
+model User {
+    name     String    @id
+    email    String?   @unique
+    password String?
+    Player   Player?
+    sessions Session[]
+}
+
+model Player {
+    name        String  @id
+    displayName String?
+    userRef     User    @relation(fields: [name], references: [name])
+    score       Int     @default(0)
+    maisonId    String
+    maison      Maison? @relation(fields: [maisonId], references: [name])
+}
+
+model Maison {
+    name  String @id @unique
+    score Int    @default(0)
+
+    players Player[]
+}
+
+// Session, l'id c'est le code de session. à mettre en cookie & dans le header
+model Session {
+    id        String   @id
+    userId    String
+    user      User     @relation(fields: [userId], references: [name])
+    createdAt DateTime @default(now())
+    expires   DateTime
+}
+
+model Quest {
+    id Int @id @default(autoincrement())
+    title String
+    img String?
+    description String?
+    lore String?
+    global Boolean
+    points Int @default(1)
+    ends DateTime?
+}
+
+model hasAccess {
+    playerName String
+    questId Int
+
+    date DateTime? @default(now())
+    expires DateTime?
+
+    @@id([playerName, questId])
+}
+
+model hasFinished {
+    playerName String
+    questId Int
+
+    date DateTime? @default(now())
+    expires DateTime?
+
+    @@id([playerName, questId])
+}
