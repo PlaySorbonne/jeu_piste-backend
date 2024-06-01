@@ -4,6 +4,13 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator express {
+  provider = "prisma-generator-express"
+}
+
+generator zod {
+  provider = "prisma-zod-generator"
+}
 
 datasource db {
     provider = "sqlite"
@@ -45,21 +52,21 @@ model Session {
 }
 
 model Quest {
-    id Int @id @default(autoincrement())
-    title String
-    img String?
+    id          Int       @id @default(autoincrement())
+    title       String
+    img         String?
     description String?
-    lore String?
-    global Boolean
-    points Int @default(1)
-    ends DateTime?
+    lore        String?
+    global      Boolean
+    points      Int       @default(1)
+    ends        DateTime?
 }
 
 model hasAccess {
     playerName String
-    questId Int
+    questId    Int
 
-    date DateTime? @default(now())
+    date    DateTime? @default(now())
     expires DateTime?
 
     @@id([playerName, questId])
@@ -67,9 +74,9 @@ model hasAccess {
 
 model hasFinished {
     playerName String
-    questId Int
+    questId    Int
 
-    date DateTime? @default(now())
+    date    DateTime? @default(now())
     expires DateTime?
 
     @@id([playerName, questId])

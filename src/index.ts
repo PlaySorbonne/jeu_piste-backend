@@ -1,7 +1,11 @@
 import { PrismaClient } from '@prisma/client'
+import type { ResquestWPrisma } from './utils/types';
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 
+import mainRoutes from "./routes"
+import debugRoutes from "./routes/debug"
+import userRoutes from "./routes/user"
 
 dotenv.config();
 
@@ -10,22 +14,24 @@ const app = express()
 
 const PORT = process.env.PORT;
 
+// MODULES 
 app.use(express.json()) // for parsing application/json
 
 // Attach Prisma to every request
-app.use((req, res, next) => {
+app.use((req: ResquestWPrisma, res, next) => {
   req.prisma = prisma
   next()
 })
 
-app.get("/", (request: Request, response: Response) => {
-  response.status(200).send("Hello World");
-});
+// ROUTES
+app.use("/", mainRoutes)
+app.use("/debug", debugRoutes)
+app.use("/user", userRoutes)
 
+
+// RUN
 app.listen(PORT, () => {
   console.log("Server running at PORT: ", PORT);
 }).on("error", (error) => {
-  // gracefully handle error
   throw new Error(error.message);
 });
-
