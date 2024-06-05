@@ -8,6 +8,7 @@ import debugRoutes from "./routes/debug";
 import userRoutes from "./routes/user";
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ const PORT = process.env.PORT;
 
 // MODULES
 app.use(express.json()); // for parsing application/json
+app.use(cookieParser()); // for parsing cookies
 
 // Attach Prisma to every request
 app.use((req: RequestWPrisma, res, next) => {
