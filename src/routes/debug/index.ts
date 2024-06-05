@@ -6,8 +6,8 @@ router.get("/", (request, response) => {
   response.status(200).send("Hello World");
 });
 
-router.get("/error", (req, res) => {
-    throw new Error();
-})
+router.get("/error", () => {
+  throw new Error("uwu");
+});
 
 export default router;
