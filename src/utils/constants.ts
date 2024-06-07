@@ -17,3 +17,6 @@ export const schemas = {
   mail: z.string().email(),
   password: z.string().min(5),
 } as const;
+
+// En milliseconde, -1 = infinie
+export const sessionTTL = -1;

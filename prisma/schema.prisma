@@ -23,7 +23,7 @@ model Player {
   displayName String?
   User        User    @relation(fields: [name], references: [name])
   score       Int     @default(0)
-  maisonId    String
+  maisonId    String?
   maison      Maison? @relation(fields: [maisonId], references: [name])
 }
 

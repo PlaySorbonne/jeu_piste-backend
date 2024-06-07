@@ -9,6 +9,7 @@ import userRoutes from "./routes/user";
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
 import cookieParser from "cookie-parser";
+import multer from "multer";
 
 dotenv.config();
 
@@ -20,6 +21,21 @@ const PORT = process.env.PORT;
 // MODULES
 app.use(express.json()); // for parsing application/json
 app.use(cookieParser()); // for parsing cookies
+app.use(multer().none()); // For parsing json body & multipart/form-data
+// logging every request
+app.use((req, res, next) => {
+  console.log(
+    `got ${req.method} request at ${req.originalUrl}`,
+    "\n cookies : ",
+    req.cookies,
+    "\n body : ",
+    req.body,
+    "\n query :",
+    req.query,
+    "\n"
+  );
+  next();
+});
 
 // Attach Prisma to every request
 app.use((req: RequestWPrisma, res, next) => {
@@ -35,25 +51,27 @@ app.use("/user", userRoutes);
 // ERROR HANDLER
 app.use(<ErrorRequestHandler>(
   function (err, req: RequestWPrisma, res: ResponseTyped, next) {
-    console.error(err.stack);
-
     let code =
       err instanceof ZodError
         ? HttpCodes.BAD_REQUEST
         : HttpCodes.INTERNAL_ERROR;
 
-    res.status(code).json({
-      isError: true,
-      message: "Something went wrong :(",
-      data: {
-        name: err?.name,
-        message: err?.message,
-        stack: err?.stack,
-        cause: err?.cause,
-        error: err,
-      },
-      status: code,
-    });
+    res
+      .status(code)
+      .json({
+        isError: true,
+        message: "Something went wrong :(",
+        data: {
+          name: err?.name,
+          message: err?.message,
+          stack: err?.stack,
+          cause: err?.cause,
+          error: err,
+        },
+        status: code,
+      })
+      .end();
+    next(err);
   }
 ));
 

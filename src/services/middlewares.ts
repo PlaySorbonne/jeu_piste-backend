@@ -31,30 +31,31 @@ export async function requireAuth(
   next();
 }
 
-export function checkBody(schema: ZodSchema) {
-
+export function treatBody(schema: ZodSchema) {
   return function (
     req: RequestWPrisma,
     res: ResponseTyped,
     next: NextFunction
   ) {
-    try {
-      schema.parse(req.body);
-    } catch (err: any) {
+    let data = schema.safeParse(req.body);
+    if (!data.success) {
       let code = HttpCodes.BAD_REQUEST;
-
-      res.status(code).json({
-        isError: true,
-        message: "Something went wrong :(",
-        data: {
-          name: err?.name,
-          message: err?.message,
-          stack: err?.stack,
-          cause: err?.cause,
-          error: err,
-        },
-        status: code,
-      });
+      res
+        .status(code)
+        .json({
+          status: code,
+          isError: true,
+          message: "Wrong Input",
+          data: {
+            zodParseSuccess: data.success,
+            data: data.data,
+            error: data.error,
+          },
+        })
+        .end();
+      return;
     }
+    res.locals.body = data.data;
+    next();
   };
 }

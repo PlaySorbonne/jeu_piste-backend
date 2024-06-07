@@ -17,14 +17,23 @@ export interface ErrorApiResponse {
 export type ApiResponse<T> = OKApiResponse<T> | ErrorApiResponse;
 
 export type ResponseTyped<
-  T = any,
-  U extends Record<string, any> = Record<string, any>,
-> = Response<ApiResponse<T>, U>;
+  LocalsBodyType extends Record<string, any> = Record<string, any>,
+  DataResponseType = any,
+  LocalsType extends Record<string, any> = Record<string, any>
+> = Response<
+  ApiResponse<DataResponseType>,
+  LocalsType & { body: LocalsBodyType }
+>;
 
 export type ResponseTypedWAuth<
-  T = any,
-  U extends Record<string, any> = Record<string, any>,
-> = ResponseTyped<T, U & { loggedUserId: string; sessionId: string }>;
+  LocalsBodyType extends Record<string, any> = Record<string, any>,
+  DataResponseType = any,
+  LocalsType extends Record<string, any> = Record<string, any>
+> = ResponseTyped<
+  LocalsBodyType,
+  DataResponseType,
+  LocalsType & { loggedUserId: string; sessionId: string }
+>;
 
 export type RequestWPrisma<BodyType = any, QueryType = any> = Request<
   any, // HACK any
