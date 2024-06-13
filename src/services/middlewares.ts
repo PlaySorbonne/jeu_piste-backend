@@ -3,7 +3,6 @@ import { cookiesGetLoggedUser } from "../utils";
 import { HttpCodes } from "../utils/constants";
 import { ResponseTyped, RequestWPrisma } from "../utils/types";
 import type { Response, NextFunction } from "express";
-import { z } from "zod";
 
 export async function requireAuth(
   req: RequestWPrisma,

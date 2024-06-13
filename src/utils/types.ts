@@ -35,9 +35,8 @@ export type ResponseTypedWAuth<
   LocalsType & { loggedUserId: string; sessionId: string }
 >;
 
-export type RequestWPrisma<BodyType = any, QueryType = any> = Request<
-  any, // HACK any
-  any,
-  BodyType,
-  QueryType
-> & { prisma?: PrismaClient };
+export type RequestWPrisma<
+  BodyType = any,
+  ParamsType extends Record<string, any> = Record<string, any>,
+  QueryType extends Record<string, any> = Record<string, any>
+> = Request<ParamsType, any, BodyType, QueryType> & { prisma?: PrismaClient };
