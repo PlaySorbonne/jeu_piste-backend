@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 import mainRoutes from "./routes/main";
 import debugRoutes from "./routes/debug";
-import userRoutes from "./routes/user";
+import playerRoutes from './routes/player'
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
 import cookieParser from "cookie-parser";
@@ -46,7 +46,7 @@ app.use((req: RequestWPrisma, res, next) => {
 // ROUTES
 app.use("/", mainRoutes);
 app.use("/debug", debugRoutes);
-app.use("/user", userRoutes);
+app.use("/player", playerRoutes);
 
 // ERROR HANDLER
 app.use(<ErrorRequestHandler>(

@@ -51,7 +51,10 @@ model Quest {
   lore        String?
   global      Boolean
   points      Int       @default(1)
+  starts      DateTime?
   ends        DateTime?
+  mainNPCId   Int?      @unique
+  mainNPC     NPC?      @relation(fields: [mainNPCId], references: [id])
 }
 
 model hasAccess {
@@ -73,3 +76,11 @@ model hasFinished {
 
   @@id([playerName, questId])
 }
+
+model NPC {
+  id          Int     @id @unique
+  name        String
+  img         String?
+  description String?
+  mainQuest   Quest? 
+} 

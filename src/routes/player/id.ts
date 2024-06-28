@@ -5,6 +5,8 @@ import { HttpCodes } from "../../utils/constants";
 
 const router = express.Router();
 
+
+// Todo make function treat params or smth
 router.get(
   "/:name",
   async (req: RequestWPrisma<any, { name: string }>, res: ResponseTyped<Player>) => {
@@ -23,6 +25,7 @@ router.get(
         isError: true,
         message: `player ${req.params.name} not found`,
       })
+      return;
     }
     
     let code = HttpCodes.OK;

@@ -20,3 +20,5 @@ export const schemas = {
 
 // En milliseconde, -1 = infinie
 export const sessionTTL = -1;
+
+export const ADMIN_PASS = process.env.ADMIN_PASS ?? "admin"
