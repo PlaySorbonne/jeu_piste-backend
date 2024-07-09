@@ -5,11 +5,12 @@ import dotenv from "dotenv";
 
 import mainRoutes from "./routes/main";
 import debugRoutes from "./routes/debug";
-import playerRoutes from './routes/player'
+import playerRoutes from "./routes/player";
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+import { createProxyMiddleware } from "http-proxy-middleware";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT;
+const FRONT_URL = process.env.FRONTEND_PROXY ?? "http://localhost:4321"; // Hardcoded default astro url
 
 // MODULES
 app.use(express.json()); // for parsing application/json
@@ -36,6 +38,16 @@ app.use((req, res, next) => {
   );
   next();
 });
+// CORS & HEADERS
+app.use((req, res, next) => {
+  // res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  next();
+});
 
 // Attach Prisma to every request
 app.use((req: RequestWPrisma, res, next) => {
@@ -44,9 +56,16 @@ app.use((req: RequestWPrisma, res, next) => {
 });
 
 // ROUTES
-app.use("/", mainRoutes);
-app.use("/debug", debugRoutes);
-app.use("/player", playerRoutes);
+app.use("/api", mainRoutes);
+app.use("/api/debug", debugRoutes);
+app.use("/api/player", playerRoutes);
+app.use(
+  "/",
+  createProxyMiddleware({
+    target: FRONT_URL,
+    changeOrigin: true,
+  })
+);
 
 // ERROR HANDLER
 app.use(<ErrorRequestHandler>(

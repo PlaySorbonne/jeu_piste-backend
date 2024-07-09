@@ -16,6 +16,7 @@ model User {
   password String?
   Player   Player?
   sessions Session[]
+  isAdmin  Boolean   @default(false)
 }
 
 model Player {
@@ -23,12 +24,13 @@ model Player {
   displayName String?
   User        User    @relation(fields: [name], references: [name])
   score       Int     @default(0)
-  maisonId    String?
-  maison      Maison? @relation(fields: [maisonId], references: [name])
+  maisonId    Int?
+  maison      Maison? @relation(fields: [maisonId], references: [id])
 }
 
 model Maison {
-  name  String @id @unique
+  id    Int    @id @default(autoincrement())
+  name  String @unique
   score Int    @default(0)
 
   players Player[]
@@ -82,5 +84,14 @@ model NPC {
   name        String
   img         String?
   description String?
-  mainQuest   Quest? 
-} 
+  mainQuest   Quest?
+}
+
+model PointsHistory {
+  id          Int      @id @default(autoincrement())
+  playerName  String
+  questId     Int?
+  points      Int
+  date        DateTime @default(now())
+  description String?
+}

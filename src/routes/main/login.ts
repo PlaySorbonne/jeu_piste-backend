@@ -73,6 +73,12 @@ router.post(
             : new Date(Date.now() + sessionTTL),
       },
     });
+    
+    let player = await req.prisma!.player.findFirst({
+      where: {
+        name: userId,
+      },
+    });
 
     let code = HttpCodes.OK;
     res
