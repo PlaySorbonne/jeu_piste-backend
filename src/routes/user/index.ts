@@ -8,9 +8,11 @@ const router = express.Router();
 router.use(All);
 router.use(Id);
 
+
 router.get("/", (req, res) => {
-  res.status(200).send("player");
+  res.status(200).send("user");
 });
+
 
 router.post("/", (req, res) => {
   res.status(400).json({
@@ -20,5 +22,7 @@ router.post("/", (req, res) => {
     data: null,
   });
 });
+
+
 
 export default router;

@@ -8,7 +8,7 @@ const router = express.Router();
 // LOGOUT
 router.get("/logout", (req, res) => {
   res.status(200).send(
-    `<form action="/logout" method="post" enctype="multipart/form-data">
+    `<form action="/api/logout" method="post" enctype="multipart/form-data">
         <input type="submit" value="logout" name="submit">
       </form>`
   );

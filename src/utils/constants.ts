@@ -12,13 +12,17 @@ export enum HttpCodes {
   INTERNAL_ERROR = 500,
 }
 
+export const nameSchema = z.custom<string>((val) => {
+  return typeof val === "string" && val.length > 3 // allows string of length 4
+    ? /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9_-]+$/.test(val) // regex for alphanumeric and _- (allows _- only if there is at least one alphanumeric character)
+    : false;
+});
+
 export const schemas = {
-  name: z.string().min(5).max(20),
+  name: nameSchema,
   mail: z.string().email(),
   password: z.string().min(5),
 } as const;
 
 // En milliseconde, -1 = infinie
 export const sessionTTL = -1;
-
-export const ADMIN_PASS = process.env.ADMIN_PASS ?? "admin"

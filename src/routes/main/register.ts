@@ -18,7 +18,7 @@ type bodyType = z.infer<typeof bodySchema>;
 // REGISTER
 router.get("/register", (req, res) => {
   res.status(200).send(
-    `<form action="/register" method="post" enctype="multipart/form-data">
+    `<form action="/api/register" method="post" enctype="multipart/form-data">
         name
         <input type="text" name="name" id="name">
         mail
@@ -40,7 +40,7 @@ router.post(
       },
     });
 
-    if (olds[0]) {
+    if (olds[0] || res.locals.body.name === "all") {
       let code = HttpCodes.BAD_REQUEST;
       res
         .status(code)

@@ -16,7 +16,7 @@ type bodyType = z.infer<typeof bodySchema>;
 
 router.get("/login", (req: RequestWPrisma, res) => {
   res.status(200).send(
-    `<form action="/login" method="post" enctype="multipart/form-data">
+    `<form action="/api/login" method="post" enctype="multipart/form-data">
         name or mail
         <input type="text" name="name" id="name">
         password
@@ -30,6 +30,8 @@ router.post(
   "/login",
   treatBody(bodySchema),
   async (req: RequestWPrisma<bodyType>, res: ResponseTyped<bodyType>) => {
+
+
     let isMail = res.locals.body.name.includes("@");
 
     let data: {

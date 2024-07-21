@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import mainRoutes from "./routes/main";
 import debugRoutes from "./routes/debug";
 import playerRoutes from "./routes/player";
+import adminRoutes from "./routes/admin";
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
 import cookieParser from "cookie-parser";
@@ -59,6 +60,7 @@ app.use((req: RequestWPrisma, res, next) => {
 app.use("/api", mainRoutes);
 app.use("/api/debug", debugRoutes);
 app.use("/api/player", playerRoutes);
+app.use("/api/admin", adminRoutes);
 app.use(
   "/",
   createProxyMiddleware({

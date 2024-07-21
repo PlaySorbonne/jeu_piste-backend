@@ -32,7 +32,7 @@ export type ResponseTypedWAuth<
 > = ResponseTyped<
   LocalsBodyType,
   DataResponseType,
-  LocalsType & { loggedUserId: string; sessionId: string }
+  LocalsType & { loggedUserId: string; sessionId: string; isAdmin: boolean }
 >;
 
 export type RequestWPrisma<
