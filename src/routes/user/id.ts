@@ -1,12 +1,12 @@
 import express from "express";
 import { RequestWPrisma, ResponseTyped } from "../../utils/types";
 import { Player } from "@prisma/client";
-import { HttpCodes, nameSchema } from "../../utils/constants";
+import { HttpCodes, schemas } from "../../utils/constants";
 import { requireAuth, verifyParams } from "../../services/middlewares";
 import { z } from "zod";
 
 let paramsSchema = z.object({
-  name: nameSchema,
+  name: schemas.name,
 });
 
 const router = express.Router();

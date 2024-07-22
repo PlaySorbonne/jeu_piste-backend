@@ -2,7 +2,7 @@
 
 ## Question
 
-- Conditionner les quêtes aux heures où c'est possible de les faire ou les afficher et dire "c'est possible de les faire que entre x et x"
+- Conditionner l'accès aux quêtes aux heures où c'est possible de les faire ou les afficher et dire "c'est possible de les faire que entre x et x"
 
 - Juste pour vérifier, il n'y pas besoin de lier un NPC à une quête, il faut juste afficher les images NPC qui peuvent donner des quêtes ?
 

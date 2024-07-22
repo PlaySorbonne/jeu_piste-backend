@@ -1,14 +1,22 @@
 import express from "express";
 import { RequestWPrisma, ResponseTyped } from "../../utils/types";
 import { Player, Prisma } from "@prisma/client";
-import { HttpCodes } from "../../utils/constants";
+import { HttpCodes, schemas } from "../../utils/constants";
+import { z } from "zod";
+import { verifyParams } from "../../services/middlewares";
+import { zodOptionalEmpty } from "../../utils";
 
 const router = express.Router();
 
 
+let paramsSchema = z.object({
+  name: schemas.name,
+});
+
 // Todo make function treat params or smth
 router.get(
   "/:name",
+  verifyParams(paramsSchema),
   async (req: RequestWPrisma<any, { name: string }>, res: ResponseTyped<Player>) => {
     
     let [player, ..._] = await req.prisma!.player.findMany({
@@ -37,5 +45,16 @@ router.get(
     });
   }
 );
+
+let bodySchema = z.object({
+  displayName: zodOptionalEmpty(schemas.displayName),
+
+});
+  
+
+router.put(
+  "/:name",
+  verifyParams(paramsSchema),
+)
 
 export default router;

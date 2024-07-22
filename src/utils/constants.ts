@@ -12,16 +12,21 @@ export enum HttpCodes {
   INTERNAL_ERROR = 500,
 }
 
-export const nameSchema = z.custom<string>((val) => {
-  return typeof val === "string" && val.length > 3 // allows string of length 4
+const nameSchema = z.custom<string>((val) => {
+  return typeof val === "string" && val.length > 3 && val.length < 20 // allows string of length 4
     ? /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9_-]+$/.test(val) // regex for alphanumeric and _- (allows _- only if there is at least one alphanumeric character)
     : false;
 });
 
 export const schemas = {
   name: nameSchema,
+  displayName: nameSchema,
   mail: z.string().email(),
   password: z.string().min(5),
+  score: z.union([
+    z.number().int().positive(),
+    z.string().regex(/^[0-9]+$/).transform((val) => parseInt(val)),
+  ])
 } as const;
 
 // En milliseconde, -1 = infinie
