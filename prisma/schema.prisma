@@ -10,6 +10,12 @@ datasource db {
 }
 
 // Table pour gérer tout ce qui est login
+
+model TheGame {
+  id          Int      @id @default(1)
+  description String?
+}
+
 model User {
   name     String    @id
   email    String?   @unique
@@ -55,19 +61,17 @@ model Quest {
   points      Int       @default(1)
   starts      DateTime?
   ends        DateTime?
-  mainNPCId   Int?      @unique
-  mainNPC     NPC?      @relation(fields: [mainNPCId], references: [id])
 }
 
-model hasAccess {
-  playerName String
-  questId    Int
+// model hasAccess {
+//   playerName String
+//   questId    Int
 
-  date    DateTime? @default(now())
-  expires DateTime?
+//   date    DateTime? @default(now())
+//   expires DateTime?
 
-  @@id([playerName, questId])
-}
+//   @@id([playerName, questId])
+// }
 
 model hasFinished {
   playerName String
@@ -84,7 +88,7 @@ model NPC {
   name        String
   img         String?
   description String?
-  mainQuest   Quest?
+  show        Boolean @default(false)
 }
 
 model PointsHistory {
