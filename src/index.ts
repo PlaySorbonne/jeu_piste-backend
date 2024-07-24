@@ -8,6 +8,7 @@ import debugRoutes from "./routes/debug";
 import playerRoutes from "./routes/player";
 import adminRoutes from "./routes/admin";
 import userRoutes from "./routes/user";
+import questRoutes from "./routes/quest";
 
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
@@ -37,7 +38,7 @@ app.use((req, res, next) => {
     req.body,
     "\n query :",
     req.query,
-    "\n"
+    "\n",
   );
   next();
 });
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
   // res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   next();
@@ -64,12 +65,13 @@ app.use("/api/debug", debugRoutes);
 app.use("/api/player", playerRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/quest", questRoutes);
 app.use(
   "/",
   createProxyMiddleware({
     target: FRONT_URL,
     changeOrigin: true,
-  })
+  }),
 );
 
 // ERROR HANDLER

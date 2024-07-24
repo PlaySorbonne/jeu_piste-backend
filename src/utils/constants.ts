@@ -25,8 +25,15 @@ export const schemas = {
   password: z.string().min(5),
   score: z.union([
     z.number().int().positive(),
-    z.string().regex(/^[0-9]+$/).transform((val) => parseInt(val)),
-  ])
+    z
+      .string()
+      .regex(/^[0-9]+$/)
+      .transform((val) => parseInt(val)),
+  ]),
+  title: z.string().min(3).max(30),
+  img: z.string().url(),
+  description: z.string().min(3).max(1000),
+  date: z.coerce.date(),
 } as const;
 
 // En milliseconde, -1 = infinie
