@@ -19,6 +19,7 @@ const nameSchema = z.custom<string>((val) => {
 });
 
 export const schemas = {
+  id: z.string().regex(/^[0-9]*$/),
   name: nameSchema,
   displayName: nameSchema,
   mail: z.string().email(),
