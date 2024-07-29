@@ -11,7 +11,6 @@ let paramsSchema = z.object({
 
 const router = express.Router();
 
-// Todo make function treat params or smth
 router.get(
   "/:id",
   verifyParams(paramsSchema),
@@ -22,6 +21,7 @@ router.get(
   ) => {
     let [quest, ..._] = await req.prisma!.quest.findMany({
       where: {
+        // TODO : do the parseInt with zod
         id: parseInt(req.params.id),
       },
     });
