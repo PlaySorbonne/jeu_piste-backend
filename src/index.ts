@@ -4,6 +4,7 @@ import express, { Request, Response, ErrorRequestHandler } from "express";
 import dotenv from "dotenv";
 
 import mainRoutes from "./routes/main";
+import authRoutes from "./routes/auth";
 import debugRoutes from "./routes/debug";
 import playerRoutes from "./routes/player";
 import adminRoutes from "./routes/admin";
@@ -62,6 +63,7 @@ app.use((req: RequestWPrisma, res, next) => {
 
 // ROUTES
 app.use("/api", mainRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/debug", debugRoutes);
 app.use("/api/player", playerRoutes);
 app.use("/api/admin", adminRoutes);
