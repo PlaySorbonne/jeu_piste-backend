@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(All);
 
 router.get("/", (req, res) => {
-	res.status(200).send("maison");
+  res.status(200).send("fraternité");
 });
 
 export default router;

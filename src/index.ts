@@ -10,7 +10,7 @@ import playerRoutes from "./routes/player";
 import adminRoutes from "./routes/admin";
 import userRoutes from "./routes/user";
 import questRoutes from "./routes/quest";
-import maisonRoutes from "./routes/maison";
+import fraternityRoutes from "./routes/fraternity";
 
 import { HttpCodes } from "./utils/constants";
 import { ZodError } from "zod";
@@ -69,7 +69,7 @@ app.use("/api/player", playerRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/quest", questRoutes);
-app.use("/api/maison", maisonRoutes);
+app.use("/api/fraternity", fraternityRoutes);
 app.use(
   "/",
   createProxyMiddleware({
@@ -80,7 +80,7 @@ app.use(
 
 // ERROR HANDLER
 app.use(<ErrorRequestHandler>(
-  function(err, req: RequestWPrisma, res: ResponseTyped, next) {
+  function (err, req: RequestWPrisma, res: ResponseTyped, next) {
     let code =
       err instanceof ZodError
         ? HttpCodes.BAD_REQUEST

@@ -1,7 +1,7 @@
 // https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js":
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -12,7 +12,7 @@ datasource db {
 // Table pour gérer tout ce qui est login
 
 model TheGame {
-  id          Int      @id @default(1)
+  id          Int     @id @default(1)
   description String?
 }
 
@@ -26,16 +26,16 @@ model User {
 }
 
 model Player {
-  name        String  @id
-  displayName String?
-  icon        String?
-  User        User    @relation(fields: [name], references: [name])
-  score       Int     @default(0)
-  maisonId    Int?
-  maison      Maison? @relation(fields: [maisonId], references: [id])
+  name         String      @id
+  displayName  String?
+  icon         String?
+  User         User        @relation(fields: [name], references: [name])
+  score        Int         @default(0)
+  fraternityId Int?
+  fraternity   Fraternity? @relation(fields: [fraternityId], references: [id])
 }
 
-model Maison {
+model Fraternity {
   id    Int    @id @default(autoincrement())
   name  String @unique
   score Int    @default(0)

@@ -17,9 +17,9 @@
 - [X] Pouvoir se connecter
  - [ ] Si mdp existe, connexion avec mdp seulement
 - [X] Pouvoir se déconnecter
-- [ ] Pouvoir choisir sa maison
-  - [ ] Quizz pour selectionner sa maison (pas une priorité)
-  - [ ] Endpoint qui attribue la maison avec le moins de personne, si égalité, random
+- [ ] Pouvoir choisir sa fraternité
+  - [ ] Quizz pour selectionner sa fraternité (pas une priorité)
+  - [ ] Endpoint qui attribue la fraternité avec le moins de personne, si égalité, random
 - [ ] Pouvoir voir les quêtes (auquel on a accès)
 - [ ] Afficher les npcs qui peuvent donner des quêtes
 
@@ -28,7 +28,7 @@
 - [ ] Ont potentiellement une date de fin & une date de début
 - [ ] peuvent être global ou pas (c'est à dire que tout le monde peut la voir ou pas)
 - [ ] si non global, qrcode pour accéder à la quête (pas une priorité/sera jamais fait)
-- [ ] qrcode pour finir la quête (attribue les points au joueur et donc à la maison)
+- [ ] qrcode pour finir la quête (attribue les points au joueur et donc à la fraternité)
 
 
 ### Interface ADMIN
@@ -46,7 +46,7 @@
 
 ### DEV
 
-- [ ] Ajouter un système de log (surtout comment x personne a gagné x points) (pas une priorité) 
+- [ ] Ajouter un système de log (surtout comment x personne a gagné x points) (pas une priorité)
 
 ### Frontend
 
@@ -55,4 +55,3 @@
 - [ ] pouvoir modifier facilement la description (ou certain texte de la frontend) (un peu overkill mais bon, facilité >)
 
 ## Routes
-
